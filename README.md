@@ -99,6 +99,7 @@ LinkedIn: https://www.linkedin.com/in/rocio-zahory-vasquez-romero-3621ab1a7/
    - Dropping low-correlation features hurt performance.
    - Dropping low-importance features improved slightly (R² ~0.76).
    - **Hyperparameter tuning of XGBoost** → best result (R² ~0.908, RMSE ~109k).
+
 ---
 ## :bar_chart: Results
 | Model              | RMSE (USD) | R²   |
