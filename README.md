@@ -2,7 +2,7 @@
 
 ## 🚀 Project Overview
 This project predicts **house prices** in King County using multiple machine learning models.  
-The workflow covers **data preprocessing, feature selection, model building, and evaluation** to identify the most effective regression approach.  
+The workflow covers **data preprocessing, feature selection, model building, and evaluation** to identify the most effective predictive modeling approach.  
 
 The dataset provides detailed housing characteristics such as bedrooms, bathrooms, square footage, lot size, floors, waterfront, view, condition, grade, year built/renovated, and geographical location (zipcode, latitude, longitude).  
 
@@ -31,118 +31,11 @@ The dataset provides detailed housing characteristics such as bedrooms, bathroom
 - **Second iteration:** Dropped redundant variables while keeping key ones such as `latitude`.  
   - **Result:** Slight improvement in performance (~R² 0.76 with Linear Regression) and reduced dataset complexity.  
 
-- **Overall:**  
-  - Even though tree-based models like Random Forest and XGBoost can handle redundant variables, this refinement step was important to test the impact of feature reduction.  
-  - It improved interpretability, reduced noise, and slightly boosted performance before hyperparameter tuning.  
-  - Final performance gain came mainly from **tuning XGBoost**, but feature selection was an essential step in the model improvement process.  
-
----
-
-
-
-
-
-     
----
-
-## 🧰 Models Used
-1. **K-Nearest Neighbors (KNN) Regressor**  
-   - Baseline regression model.  
-   - R²: Train 0.35 | Test 0.25  
-
-2. **Linear Regression**  
-   - Simple linear approach.  
-   - R²: Train 0.70 | Test 0.70  
-
-3. **Random Forest Regressor** 🌳  
-   - Captures non-linear patterns with ensemble trees.  
-   - R²: Train 0.89 | Test 0.89  
-
-4. **XGBoost Regressor** ⚡  
-   - **Improved once with hyperparameter tuning**.  
-   - R²: Train 0.987 | Test 0.908 ✅  
-
----
-
-## 📈 Key Insights
-- Data improvements were crucial: **2 rounds of feature refinement** increased predictive power.  
-- Tree-based models (Random Forest & XGBoost) outperform KNN and Linear Regression due to their ability to model complex relationships.  
-- The simplified date format works for both **heatmaps** and **ML models** without losing interpretability.  
-
----
-
-## 📊 Metrics Explained
-- **MSE (Mean Squared Error):** Lower is better; measures average squared error.  
-- **RMSE (Root Mean Squared Error):** Square root of MSE; easier to interpret in house price units.  
-- **R² Score:** Proportion of variance explained; closer to 1 = better prediction.
-
----
-
-## ⚡ How to Run
-1. Clone the repo:  
-```bash
-git clone <your-repo-url>
-
-
-## 🙋🏽‍♀️ About Me
-
-Rocío Zahory Vásquez Romero
-
-Senior Auditor | Data Science & Machine Learning Enthusiast
-Email: rocio.vasquez@usach.cl
-LinkedIn: https://www.linkedin.com/in/rocio-zahory-vasquez-romero-3621ab1a7/
-
-
-
-
-
-
----
-## :open_file_folder: Dataset
-- **Target:** `price` (USD)
-- **Features:** bedrooms, bathrooms, `sqft_living`, lot size, floors, `waterfront`, `view`, `condition`, `grade`, year built/renovated, `zipcode`, `lat`, `long`
----
-## :gear: Workflow
-1. **Data Cleaning**: handled duplicates, converted dates, removed irrelevant columns.
-2. **EDA**: histograms, boxplots, correlation heatmaps.
-   - Top drivers: `sqft_living`, `grade`, `sqft_above`, `sqft_living15`.
-   - For expensive homes (≥ $650k), **size** and **grade** matter most.
-3. **Models Tested**:
-   - KNN → poor generalization (R² ~0.25)
-   - Linear Regression → decent baseline (R² ~0.70)
-   - Random Forest → strong (R² ~0.89, RMSE ~114k)
-   - XGBoost → best baseline (R² ~0.897, RMSE ~111k)
-4. **Improvements**:
-   - Dropping low-correlation features hurt performance.
-   - Dropping low-importance features improved slightly (R² ~0.76).
-   - **Hyperparameter tuning of XGBoost** → best result (R² ~0.908, RMSE ~109k).
-
----
-## :bar_chart: Results
-| Model              | RMSE (USD) | R²   |
-|--------------------|------------|------|
-| KNN                | ~300k      | 0.25 |
-| Linear Regression  | 200–360k   | 0.70 |
-| Random Forest      | 114k       | 0.89 |
-| XGBoost (baseline) | 111k       | 0.897|
-| **XGBoost (tuned)**| **109k**   | **0.908** |
-**Key Insight:** Tree-based models (RF, XGBoost) dramatically outperform simpler baselines.
-The tuned XGBoost is the final model, explaining ~91% of price variability.
-
-
-
-
-
-
-
-
-
----
-
-
-
----
-
+**Overall:**  
+  - After comparing several models (KNN, Linear Regression, Random Forest, and XGBoost), **XGBoost** was selected as the best price predictor.  
+  - The feature selection strategy was applied to this model to test whether reducing redundant variables could bring improvements.  
+  - Although XGBoost can handle redundant variables, this step helped enhance interpretability, reduce noise, and provide more stability before tuning.  
+  - The biggest performance boost came from **tuning XGBoost**, but feature refinement was key as a prior optimization step.  
 
 ---
 
@@ -161,9 +54,9 @@ The tuned XGBoost is the final model, explaining ~91% of price variability.
    - R²: Train 0.89 | Test 0.89  
 
 4. **XGBoost Regressor** ⚡  
-   - With hyperparameter tuning.  
+   - **Improved once with hyperparameter tuning**.   
    - R²: Train 0.987 | Test 0.908 ✅  
-
+    
 ---
 
 ## 📊 Model Comparison  
@@ -177,28 +70,20 @@ The tuned XGBoost is the final model, explaining ~91% of price variability.
 | Random Forest        | 0.89      |
 | XGBoost (tuned)      | 0.908     |
 
-### 📉 Visualization  
-
-![Model Comparison](results/model_comparison.png)
-
-*The chart shows R² scores on the test set for each model, highlighting XGBoost as the top performer.*
-
 ---
 
-## 📈 Key Insights  
-
-- Feature refinement significantly impacted results: removing low-correlation features hurt predictive power, while dropping redundant but low-importance features slightly improved performance (~R² 0.76).  
-- Tree-based models (Random Forest & XGBoost) outperformed KNN and Linear Regression due to their ability to capture complex, non-linear interactions.  
-- Hyperparameter tuning of XGBoost delivered the strongest performance with R² ≈ 0.908 and RMSE ≈ 109K.  
+## 📂 Key Insights
 - Simplifying the date variable improved both visualization (heatmaps) and model training without losing interpretability.  
+- Tree-based models (Random Forest & XGBoost) outperformed KNN and Linear Regression due to their ability to capture complex, non-linear interactions.
+- Feature refinement significantly impacted results: removing low-correlation features hurt predictive power, while dropping redundant but low-importance features slightly improved performance (~R² 0.76).  
+- Hyperparameter tuning of XGBoost delivered the strongest performance with R² ≈ 0.908 and RMSE ≈ 109K.  
 
 ---
 
-## 📊 Metrics Explained  
-
-- **MSE (Mean Squared Error):** Average squared prediction error (lower = better).  
-- **RMSE (Root Mean Squared Error):** Interpretable error in housing price units.  
-- **R² Score:** Proportion of variance explained by the model (closer to 1 = better).  
+## 📊 Metrics Explained
+- **MSE (Mean Squared Error):** Lower is better; measures average squared error.  
+- **RMSE (Root Mean Squared Error):** Square root of MSE; easier to interpret in house price units.  
+- **R² Score:** Proportion of variance explained; closer to 1 = better prediction.
 
 ---
 
@@ -208,9 +93,22 @@ This project highlights the importance of **iterative feature selection** and **
 
 ---
 
-## ⚡ How to Run  
+## 🙋🏽‍♀️ About Me
 
+- Rocío Zahory Vásquez Romero
+- Senior Auditor | Data Science & Machine Learning Enthusiast
+- Email: rocio.vasquez@usach.cl
+- LinkedIn: https://www.linkedin.com/in/rocio-zahory-vasquez-romero-3621ab1a7/
+
+
+## ⚡ How to Run
 1. Clone the repo:  
 ```bash
 git clone <your-repo-url>
+
+
+
+
+
+
 
